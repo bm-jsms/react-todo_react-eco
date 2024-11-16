@@ -8,8 +8,6 @@ import {
 
 import { defaultTodos } from './data';
 
-import './App.css';
-
 function App() {
 	const totalTodos = defaultTodos.length;
 	const completedTodos = defaultTodos.filter((todo) => todo.completed).length;
