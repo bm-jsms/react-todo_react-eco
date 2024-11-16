@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
 	return (
-		<div className='App'>
+		<>
 			<TodoCounter completed={0} total={3} />
 
 			<TodoSearch />
@@ -22,7 +22,7 @@ function App() {
 			</TodoList>
 
 			<CreateTodoButton />
-		</div>
+		</>
 	);
 }
 
