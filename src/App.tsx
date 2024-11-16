@@ -11,9 +11,12 @@ import { defaultTodos } from './data';
 import './App.css';
 
 function App() {
+	const totalTodos = defaultTodos.length;
+	const completedTodos = defaultTodos.filter((todo) => todo.completed).length;
+
 	return (
 		<>
-			<TodoCounter completed={0} total={3} />
+			<TodoCounter completed={completedTodos} total={totalTodos} />
 
 			<TodoSearch />
 
