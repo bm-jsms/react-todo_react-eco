@@ -6,6 +6,8 @@ import {
 	TodoSearch,
 } from './components';
 
+import { defaultTodos } from './data';
+
 import './App.css';
 
 function App() {
@@ -16,9 +18,9 @@ function App() {
 			<TodoSearch />
 
 			<TodoList>
-				<TodoItem />
-				<TodoItem />
-				<TodoItem />
+				{defaultTodos.map(({ id, title, completed }) => (
+					<TodoItem key={id} title={title} completed={completed} />
+				))}
 			</TodoList>
 
 			<CreateTodoButton />
