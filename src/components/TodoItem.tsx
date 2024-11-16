@@ -1,8 +1,11 @@
-const TodoItem = () => {
+import { TodoType } from '../interfaces';
+
+const TodoItem = ({ title, completed }: TodoType) => {
 	return (
 		<li>
 			<span>V</span>
-			<p>Todo example</p>
+			<p>{title}</p>
+			<p>{completed ? '✅' : '❌'}</p>
 			<span>X</span>
 		</li>
 	);
