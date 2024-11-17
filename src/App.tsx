@@ -8,12 +8,22 @@ import {
 } from './components';
 
 import { defaultTodos } from './data';
+import type { TodoType } from './interfaces';
 
 function App() {
-	const totalTodos = defaultTodos.length;
-	const completedTodos = defaultTodos.filter((todo) => todo.completed).length;
+	const [todos, setTodos] = useState<TodoType[]>(defaultTodos);
 
 	const [inputValue, setInputValue] = useState<string>('');
+
+	const searchedTodos = todos.filter((todo) => {
+		const todoText = todo.title.toLowerCase();
+		const inputText = inputValue.toLowerCase();
+
+		return todoText.includes(inputText);
+	});
+
+	const totalTodos = todos.length;
+	const completedTodos = todos.filter((todo) => !!todo.completed).length;
 
 	return (
 		<main className='flex flex-col items-center justify-center min-h-screen py-2 max-w-screen-md mx-auto'>
@@ -22,7 +32,7 @@ function App() {
 			<TodoSearch searchValue={inputValue} setSearchValue={setInputValue} />
 
 			<TodoList>
-				{defaultTodos.map(({ id, title, completed }) => (
+				{searchedTodos?.map(({ id, title, completed }) => (
 					<TodoItem key={id} title={title} completed={completed} />
 				))}
 			</TodoList>
