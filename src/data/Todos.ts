@@ -9,7 +9,7 @@ const defaultTodos: TodoType[] = [
 	{
 		id: 2,
 		title: 'Todo 2',
-		completed: false,
+		completed: true,
 	},
 	{
 		id: 3,
