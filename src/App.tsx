@@ -13,7 +13,7 @@ function App() {
 	const completedTodos = defaultTodos.filter((todo) => todo.completed).length;
 
 	return (
-		<>
+		<main className='flex flex-col items-center justify-center min-h-screen py-2 max-w-screen-md mx-auto'>
 			<TodoCounter completed={completedTodos} total={totalTodos} />
 
 			<TodoSearch />
@@ -25,7 +25,7 @@ function App() {
 			</TodoList>
 
 			<CreateTodoButton />
-		</>
+		</main>
 	);
 }
 
