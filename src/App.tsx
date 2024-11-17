@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
 	CreateTodoButton,
 	TodoCounter,
@@ -12,11 +13,13 @@ function App() {
 	const totalTodos = defaultTodos.length;
 	const completedTodos = defaultTodos.filter((todo) => todo.completed).length;
 
+	const [inputValue, setInputValue] = useState<string>('');
+
 	return (
 		<main className='flex flex-col items-center justify-center min-h-screen py-2 max-w-screen-md mx-auto'>
 			<TodoCounter completed={completedTodos} total={totalTodos} />
 
-			<TodoSearch />
+			<TodoSearch searchValue={inputValue} setSearchValue={setInputValue} />
 
 			<TodoList>
 				{defaultTodos.map(({ id, title, completed }) => (
