@@ -22,6 +22,20 @@ function App() {
 		return todoText.includes(inputText);
 	});
 
+	const completeTodo = (text: string) => {
+		const newTodos: TodoType[] = [...todos];
+		const todoIndex = newTodos.findIndex((todo) => todo.title === text);
+		newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
+
+		return setTodos(newTodos);
+	};
+
+	const deleteTodo = (text: string) => {
+		const newTodos: TodoType[] = todos.filter((todo) => todo.title !== text);
+
+		return setTodos(newTodos);
+	};
+
 	const totalTodos = todos.length;
 	const completedTodos = todos.filter((todo) => !!todo.completed).length;
 
@@ -33,7 +47,13 @@ function App() {
 
 			<TodoList>
 				{searchedTodos?.map(({ id, title, completed }) => (
-					<TodoItem key={id} title={title} completed={completed} />
+					<TodoItem
+						key={id}
+						title={title}
+						completed={completed}
+						onComplete={() => completeTodo(title)}
+						onDelete={() => deleteTodo(title)}
+					/>
 				))}
 			</TodoList>
 
