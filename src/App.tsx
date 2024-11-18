@@ -1,21 +1,18 @@
 import { useState } from 'react';
-import {
-	CreateTodoButton,
-	TodoCounter,
-	TodoItem,
-	TodoList,
-	TodoSearch,
-} from './components';
 
 import { defaultTodos } from './data';
-import type { TodoType } from './interfaces';
+import type { TodoTypeData } from './interfaces';
+import { useLocalStorage } from './hooks';
+import { AppUI } from './ui';
+
+// localStorage.setItem('TODOS', JSON.stringify(defaultTodos));
+// localStorage.removeItem('TODOS');
 
 function App() {
-	const [todos, setTodos] = useState<TodoType[]>(defaultTodos);
-
+	const [todos, saveTodos] = useLocalStorage('TODOS', defaultTodos);
 	const [inputValue, setInputValue] = useState<string>('');
 
-	const searchedTodos = todos.filter((todo) => {
+	const searchedTodos = todos.filter((todo: TodoTypeData) => {
 		const todoText = todo.title.toLowerCase();
 		const inputText = inputValue.toLowerCase();
 
@@ -23,51 +20,30 @@ function App() {
 	});
 
 	const completeTodo = (text: string) => {
-		const newTodos: TodoType[] = [...todos];
+		const newTodos: TodoTypeData[] = [...todos];
 		const todoIndex = newTodos.findIndex((todo) => todo.title === text);
 		newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
 
-		return setTodos(newTodos);
+		return saveTodos(newTodos);
 	};
 
 	const deleteTodo = (text: string) => {
-		const newTodos: TodoType[] = todos.filter((todo) => todo.title !== text);
-
-		return setTodos(newTodos);
-	};
-
-	const totalTodos = todos.length;
-	const completedTodos = todos.filter((todo) => !!todo.completed).length;
-
-	const todoItemsProv = () => {
-		if (searchedTodos.length > 0) {
-			return searchedTodos.map(({ id, title, completed }) => (
-				<TodoItem
-					key={id}
-					title={title}
-					completed={completed}
-					onComplete={() => completeTodo(title)}
-					onDelete={() => deleteTodo(title)}
-				/>
-			));
-		}
-		return (
-			<li className='text-center text-xl font-medium text-slate-500/45'>
-				No todo's found
-			</li>
+		const newTodos: TodoTypeData[] = todos.filter(
+			(todo: TodoTypeData) => todo.title !== text,
 		);
+
+		return saveTodos(newTodos);
 	};
 
 	return (
-		<main className='flex flex-col items-center justify-center min-h-screen py-2 max-w-screen-md mx-auto'>
-			<TodoCounter completed={completedTodos} total={totalTodos} />
-
-			<TodoSearch searchValue={inputValue} setSearchValue={setInputValue} />
-
-			<TodoList>{todoItemsProv()}</TodoList>
-
-			<CreateTodoButton />
-		</main>
+		<AppUI
+			todos={todos}
+			searchedTodos={searchedTodos}
+			completeTodo={completeTodo}
+			deleteTodo={deleteTodo}
+			inputValue={inputValue}
+			setInputValue={setInputValue}
+		/>
 	);
 }
 
