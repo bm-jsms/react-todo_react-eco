@@ -3,6 +3,6 @@ export type TodoType = {
 	title: string;
 	completed: boolean;
 
-	onComplete?: () => void;
-	onDelete?: () => void;
+	onComplete: () => void;
+	onDelete: () => void;
 };
