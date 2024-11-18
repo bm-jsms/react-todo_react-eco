@@ -15,6 +15,8 @@ const AppUI = ({
 	deleteTodo,
 	inputValue,
 	setInputValue,
+	loading,
+	error,
 }: AppUIProps) => {
 	const totalTodos = todos.length;
 	const completedTodos = todos.filter(
@@ -45,7 +47,19 @@ const AppUI = ({
 			<TodoCounter completed={completedTodos} total={totalTodos} />
 			<TodoSearch searchValue={inputValue} setSearchValue={setInputValue} />
 
-			<TodoList>{todoItemsProv()}</TodoList>
+			<TodoList>
+				{loading && (
+					<li className='text-center text-xl font-medium text-slate-500/45'>
+						Loading...
+					</li>
+				)}
+				{error && (
+					<li className='text-center text-xl font-medium text-slate-500/45'>
+						Error...
+					</li>
+				)}
+				{!loading && todoItemsProv()}
+			</TodoList>
 			<CreateTodoButton />
 		</main>
 	);
