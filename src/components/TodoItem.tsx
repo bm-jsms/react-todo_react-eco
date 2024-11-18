@@ -1,5 +1,4 @@
-import { CompleteIcon } from '../icons';
-import { DeleteIcon } from '../icons/DeleteIcon';
+import { CompleteIcon, DeleteIcon } from '../icons';
 import type { TodoType } from '../interfaces';
 
 const TodoItem = ({ title, completed, onComplete, onDelete }: TodoType) => {
