@@ -49,12 +49,14 @@ const AppUI = ({
 
 			<TodoList>
 				{loading && (
-					<li className='text-center text-xl font-medium text-slate-500/45'>
-						Loading...
+					<li className='p-4 space-y-4 sm:px-8'>
+						<div className='w-full h-4 rounded bg-gradient-to-br from-gray-400 to-slate-700'></div>
+						<div className='w-full h-4 rounded bg-gradient-to-br from-gray-400 to-slate-700'></div>
+						<div className='w-full h-4 rounded bg-gradient-to-br from-gray-400 to-slate-700'></div>
 					</li>
 				)}
 				{error && (
-					<li className='text-center text-xl font-medium text-slate-500/45'>
+					<li className='text-center text-xl font-medium text-slate-400/45'>
 						Error...
 					</li>
 				)}
