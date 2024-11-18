@@ -13,8 +13,14 @@ const TodoItem = ({ title, completed, onComplete, onDelete }: TodoType) => {
 				V
 			</span> */}
 
-			<CompleteIcon handleClick={onComplete} />
-			<p className={`text-xl ${completed && 'line-through'}`}>{title}</p>
+			<CompleteIcon handleClick={onComplete} completed={completed} />
+			<p
+				className={`text-xl font-normal ${
+					completed && 'line-through text-gray-500'
+				}`}
+			>
+				{title}
+			</p>
 			<DeleteIcon handleClick={onDelete} />
 
 			{/* <span
