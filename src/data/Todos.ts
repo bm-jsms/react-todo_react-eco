@@ -1,6 +1,6 @@
-import type { TodoType } from '../interfaces';
+import type { TodoTypeData } from '../interfaces';
 
-const defaultTodos: TodoType[] = [
+const defaultTodos: TodoTypeData[] = [
 	{
 		id: 1,
 		title: 'Todo 1',
