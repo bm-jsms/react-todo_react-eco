@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { defaultTodos } from './data';
-import type { TodoTypeData } from './interfaces';
 import { useLocalStorage } from './hooks';
 import { AppUI } from './ui';
 
@@ -9,10 +8,15 @@ import { AppUI } from './ui';
 // localStorage.removeItem('TODOS');
 
 function App() {
-	const [todos, saveTodos] = useLocalStorage('TODOS', defaultTodos);
+	const {
+		item: todos,
+		saveItem: saveTodos,
+		loading,
+		error,
+	} = useLocalStorage('TODOS', defaultTodos);
 	const [inputValue, setInputValue] = useState<string>('');
 
-	const searchedTodos = todos.filter((todo: TodoTypeData) => {
+	const searchedTodos = todos.filter((todo) => {
 		const todoText = todo.title.toLowerCase();
 		const inputText = inputValue.toLowerCase();
 
@@ -20,7 +24,7 @@ function App() {
 	});
 
 	const completeTodo = (text: string) => {
-		const newTodos: TodoTypeData[] = [...todos];
+		const newTodos = [...todos];
 		const todoIndex = newTodos.findIndex((todo) => todo.title === text);
 		newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
 
@@ -28,9 +32,7 @@ function App() {
 	};
 
 	const deleteTodo = (text: string) => {
-		const newTodos: TodoTypeData[] = todos.filter(
-			(todo: TodoTypeData) => todo.title !== text,
-		);
+		const newTodos = todos.filter((todo) => todo.title !== text);
 
 		return saveTodos(newTodos);
 	};
@@ -43,6 +45,8 @@ function App() {
 			deleteTodo={deleteTodo}
 			inputValue={inputValue}
 			setInputValue={setInputValue}
+			loading={loading}
+			error={error}
 		/>
 	);
 }
