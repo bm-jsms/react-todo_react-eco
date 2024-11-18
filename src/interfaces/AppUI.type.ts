@@ -9,4 +9,6 @@ export interface AppUIProps {
 	completeTodo: (text: string) => void;
 	deleteTodo: (text: string) => void;
 	setInputValue: Dispatch<React.SetStateAction<string>>;
+	loading: boolean;
+	error: boolean;
 }
