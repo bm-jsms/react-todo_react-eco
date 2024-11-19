@@ -1,18 +1,7 @@
-import { createContext, Dispatch, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 import { useLocalStorage } from '../hooks';
 import { defaultTodos } from '../data';
-import { TodoTypeData } from '../interfaces';
-
-type TodoContextType = {
-	todos: TodoTypeData[];
-	searchedTodos: TodoTypeData[];
-	inputValue: string;
-	setInputValue: Dispatch<React.SetStateAction<string>>;
-	completeTodo: (text: string) => void;
-	deleteTodo: (text: string) => void;
-	loading: boolean;
-	error: boolean;
-};
+import { TodoContextType } from '../interfaces';
 
 const TodoContext = createContext<TodoContextType>({} as TodoContextType);
 
@@ -23,7 +12,9 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 		loading,
 		error,
 	} = useLocalStorage('TODOS', defaultTodos);
+
 	const [inputValue, setInputValue] = useState<string>('');
+	const [openModal, setOpenModal] = useState<boolean>(true);
 
 	const searchedTodos = todos.filter((todo) => {
 		const todoText = todo.title.toLowerCase();
@@ -31,6 +22,13 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 
 		return todoText.includes(inputText);
 	});
+
+	const addTodo = (text: string) => {
+		const newTodos = [...todos];
+		newTodos.push({ id: new Date().getTime(), title: text, completed: false });
+
+		return saveTodos(newTodos);
+	};
 
 	const completeTodo = (text: string) => {
 		const newTodos = [...todos];
@@ -57,6 +55,9 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 				deleteTodo,
 				loading,
 				error,
+				openModal,
+				setOpenModal,
+				addTodo,
 			}}
 		>
 			{children}
