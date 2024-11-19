@@ -14,7 +14,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 	} = useLocalStorage('TODOS', defaultTodos);
 
 	const [inputValue, setInputValue] = useState<string>('');
-	const [openModal, setOpenModal] = useState<boolean>(true);
+	const [openModal, setOpenModal] = useState<boolean>(false);
 
 	const searchedTodos = todos.filter((todo) => {
 		const todoText = todo.title.toLowerCase();
