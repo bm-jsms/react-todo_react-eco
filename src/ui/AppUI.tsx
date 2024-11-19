@@ -1,6 +1,7 @@
 import {
 	CreateTodoButton,
 	TodoCounter,
+	TodoForm,
 	TodoItem,
 	TodoList,
 	TodoSearch,
@@ -9,11 +10,22 @@ import { TodoContext } from '../context';
 
 import { useContext } from 'react';
 import { TodoTypeData } from '../interfaces';
+import { Modal } from '../modal';
 
 const AppUI = () => {
-	const { searchedTodos, completeTodo, deleteTodo, loading, error }: any =
-		useContext(TodoContext);
+	const {
+		searchedTodos,
+		completeTodo,
+		deleteTodo,
+		loading,
+		error,
+		openModal,
+		setOpenModal,
+	}: any = useContext(TodoContext);
 
+	const handleModalOpen = () => {
+		setOpenModal((prev: boolean) => !prev);
+	};
 	const todoItemsProv = () => {
 		if (searchedTodos.length > 0) {
 			return searchedTodos.map(({ id, title, completed }: TodoTypeData) => (
@@ -53,7 +65,12 @@ const AppUI = () => {
 				)}
 				{!loading && todoItemsProv()}
 			</TodoList>
-			<CreateTodoButton />
+			<CreateTodoButton handleModalOpen={handleModalOpen} />
+			{openModal && (
+				<Modal>
+					<TodoForm />
+				</Modal>
+			)}
 		</main>
 	);
 };
