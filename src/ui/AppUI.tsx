@@ -5,23 +5,14 @@ import {
 	TodoList,
 	TodoSearch,
 } from '../components';
+import { TodoContext } from '../context';
 
-import { AppUIProps, TodoTypeData } from '../interfaces';
+import { useContext } from 'react';
+import { TodoTypeData } from '../interfaces';
 
-const AppUI = ({
-	todos,
-	searchedTodos,
-	completeTodo,
-	deleteTodo,
-	inputValue,
-	setInputValue,
-	loading,
-	error,
-}: AppUIProps) => {
-	const totalTodos = todos.length;
-	const completedTodos = todos.filter(
-		(todo: TodoTypeData) => todo.completed,
-	).length;
+const AppUI = () => {
+	const { searchedTodos, completeTodo, deleteTodo, loading, error }: any =
+		useContext(TodoContext);
 
 	const todoItemsProv = () => {
 		if (searchedTodos.length > 0) {
@@ -44,8 +35,8 @@ const AppUI = ({
 
 	return (
 		<main className='flex flex-col items-center justify-center min-h-screen py-2 max-w-screen-md mx-auto'>
-			<TodoCounter completed={completedTodos} total={totalTodos} />
-			<TodoSearch searchValue={inputValue} setSearchValue={setInputValue} />
+			<TodoCounter />
+			<TodoSearch />
 
 			<TodoList>
 				{loading && (
