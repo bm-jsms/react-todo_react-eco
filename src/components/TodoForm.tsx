@@ -20,21 +20,31 @@ const TodoForm = () => {
 		setNewTodoValue(e.target.value);
 	};
 	return (
-		<form onSubmit={onsubmitHandle}>
-			<label>Write your todo</label>
+		<form onSubmit={onsubmitHandle} className='flex flex-col items-center'>
+			<label className='text-slate-200 text-xl font-medium mb-2'>
+				Write your todo
+			</label>
 			<textarea
-				className='max-h-32 text-slate-600'
+				className='max-h-32 text-slate-100 bg-slate-800 max-w-full rounded-md border-2 border-slate-900 p-2 '
 				placeholder='Type your todo'
 				value={newTodoValue}
 				onChange={onChangeHandle}
 			/>
-
-			<button className='bg-red-500' type='button' onClick={onCancel}>
-				Cancel
-			</button>
-			<button className='bg-blue-500' type='submit'>
-				Save
-			</button>
+			<div className='flex justify-center gap-5 mt-5'>
+				<button
+					className='bg-red-600 p-1 px-2 rounded-md hover:bg-red-500 duration-150'
+					type='button'
+					onClick={onCancel}
+				>
+					Cancel
+				</button>
+				<button
+					className='bg-blue-500 p-1 px-2 rounded-md hover:bg-blue-600 duration-150'
+					type='submit'
+				>
+					Save
+				</button>
+			</div>
 		</form>
 	);
 };
